@@ -7,7 +7,7 @@ ENV MAX_PLAYERS=6
 ENV DIFFICULTY=0
 ENV ENABLE_WEBADMIN=false
 
-RUN apt update & apt upgrade -y
+RUN apt-get update & apt-get upgrade -y
 
 RUN useradd -d /home/kf2 -m -s /bin/bash kf2
 
@@ -21,9 +21,6 @@ ADD run.sh /home/kf2/run.sh
 ADD start.sh /home/kf2/start.sh
 
 WORKDIR /home/kf2
-
-# First installation so the game just needs to be updated
-RUN ./install.sh
 
 ADD kf2server.ini /tmp/kf2server.ini
 
