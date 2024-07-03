@@ -5,6 +5,7 @@ ENV ADMIN_PASSWORD="admin"
 ENV START_MAP="kf-bioticslab"
 ENV MAX_PLAYERS=6
 ENV DIFFICULTY=0
+ENV ENABLE_WEBADMIN=false
 
 RUN apt-get update                      &&      \
     apt-get upgrade -y                  &&      \
