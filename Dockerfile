@@ -7,7 +7,7 @@ ENV MAX_PLAYERS=6
 ENV DIFFICULTY=0
 ENV ENABLE_WEBADMIN=false
 
-RUN apt-get update                      &&      \
+RUN "apt-get update                      &&      \
     apt-get upgrade -y                  &&      \
     apt-get install -y                          \
         curl                                    \
@@ -18,13 +18,13 @@ RUN apt-get update                      &&      \
         libc6:i386				                \
         libstdc++6:i386				            \
         lib32z1					                \
-        libcurl3-gnutls:i386
+        libcurl3-gnutls:i386"
 
-RUN useradd                             \
+RUN "useradd                             \
         -d /home/kf2               \
         -m                              \
         -s /bin/bash                    \
-        kf2
+        kf2"
 
 USER kf2
 
