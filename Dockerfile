@@ -12,7 +12,12 @@ ENV ENABLE_WEBADMIN=false
 
 RUN dpkg --add-architecture i386 \
  && apt-get update -y \
+ && apt-get upgrade -y  \
  && apt-get install -y --no-install-recommends curl \
+	libc6:i386 \
+	libstdc++6:i386 \
+	lib32z1 \
+	libcurl3-gnutls:i386 \
  && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -d /home/kf2 -m -s /bin/bash kf2
