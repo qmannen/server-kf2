@@ -26,5 +26,5 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: Nicklas2751/killingfloor2-server:latest
+          tags: nicklas2751/killingfloor2-server:latest
           #, Nicklas2751/killingfloor2-server:${{ github.event.release.tag_name }}
