@@ -1,8 +1,5 @@
 FROM steamcmd/steamcmd:ubuntu-24
 
-ENV HOME=kf2
-ENV USER=kf2
-
 ENV ADMIN="admin"
 ENV ADMIN_PASSWORD="admin"
 ENV START_MAP="kf-bioticslab"
@@ -34,8 +31,5 @@ ADD start.sh /home/kf2/start.sh
 WORKDIR /home/kf2
 
 ADD kf2server.ini /tmp/kf2server.ini
-
-USER kf2
-
 
 ENTRYPOINT [ "/home/kf2/run.sh" ]
