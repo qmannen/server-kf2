@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Copy the config
-SERVER_CONFIG_FILE=/home/kf2/steamapps/232130/KFGame/Config/PCServer-KFGame.ini
+SERVER_CONFIG_FILE=/home/kf2/KFGame/Config/LinuxServer-KFGame.ini
 
 if ! [ -f ${SERVER_CONFIG_FILE} ]; then
 
-	if [ -f /tmp/KFGame.ini ]; then
+	if [ -f /tmp/kf2server.ini ]; then
 	  echo "Applying server configuration"
-	  cp /tmp/KFGame.ini ${SERVER_CONFIG_FILE}
+	  cp /tmp/kf2server.ini ${SERVER_CONFIG_FILE}
 	fi
 fi
 
@@ -28,4 +28,4 @@ fi
 
 cd /home/kf2
 
-/home/kf2/steamapps/232130/Binaries/Win64/KFGameSteamServer.bin.x86_64 ${START_MAP}?${GAMECMD}AdminName=${ADMIN}&AdminPassword=${ADMIN_PASSWORD}&MaxPlayers=${MAX_PLAYERS}&Difficulty=${DIFFICULTY}
+/home/kf2/Binaries/Win64/KFGameSteamServer.bin.x86_64 ${START_MAP}?${GAMECMD}AdminName=${ADMIN}&AdminPassword=${ADMIN_PASSWORD}&MaxPlayers=${MAX_PLAYERS}&Difficulty=${DIFFICULTY}
