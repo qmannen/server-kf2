@@ -31,5 +31,6 @@ ADD start.sh /home/kf2/start.sh
 WORKDIR /home/kf2
 
 ADD kf2server.ini /tmp/kf2server.ini
+ADD kf2web.ini /tmp/kf2web.ini
 
 ENTRYPOINT [ "/home/kf2/run.sh" ]
