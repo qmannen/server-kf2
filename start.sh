@@ -5,7 +5,7 @@ cd /home/kf2
 echo "Preparing the server"
 
 # First start to generate the config files
-(timeout 10 Binaries/Win64/KFGameSteamServer.bin.x86_64 > /dev/null 2>&1) || echo Server Prepared"
+(timeout 10 Binaries/Win64/KFGameSteamServer.bin.x86_64 > /dev/null 2>&1) || echo "Server Prepared"
 
 # Copy the config
 SERVER_CONFIG_FILE=/home/kf2/KFGame/Config/LinuxServer-KFGame.ini
