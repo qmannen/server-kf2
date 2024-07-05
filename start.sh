@@ -5,7 +5,8 @@ cd /home/kf2
 echo "Preparing the server"
 
 # First start to generate the config files
-(timeout 10 Binaries/Win64/KFGameSteamServer.bin.x86_64 > /dev/null 2>&1) || echo "Server Prepared"
+timeout 10 Binaries/Win64/KFGameSteamServer.bin.x86_64
+echo "Server Prepared"
 
 # Copy the config
 SERVER_CONFIG_FILE=/home/kf2/KFGame/Config/LinuxServer-KFGame.ini
@@ -40,6 +41,3 @@ fi
 echo "Starting the game with map ${START_MAP} and command ${GAMECMD}AdminName=${ADMIN}&MaxPlayers=${MAX_PLAYERS}&Difficulty=${DIFFICULTY}"	
 Binaries/Win64/KFGameSteamServer.bin.x86_64 ${START_MAP}?${GAMECMD}AdminName=${ADMIN}&MaxPlayers=${MAX_PLAYERS}&Difficulty=${DIFFICULTY}
 echo "Server has stopped"
-echo "Trying again"
-Binaries/Win64/KFGameSteamServer.bin.x86_64 ${START_MAP}?${GAMECMD}AdminName=${ADMIN}&MaxPlayers=${MAX_PLAYERS}&Difficulty=${DIFFICULTY}
-echo "ok stopped"
