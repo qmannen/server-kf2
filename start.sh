@@ -37,5 +37,6 @@ if [ "${GAMEMODE}" = "Endless" ]; then
     GAMECMD="Game=KFGameContent.KFGameInfo_Endless&"
 fi
 
-echo "Starting the game"	
+echo "Starting the game with map ${START_MAP} and command ${GAMECMD}AdminName=${ADMIN}&MaxPlayers=${MAX_PLAYERS}&Difficulty=${DIFFICULTY}"	
 Binaries/Win64/KFGameSteamServer.bin.x86_64 ${START_MAP}?${GAMECMD}AdminName=${ADMIN}&MaxPlayers=${MAX_PLAYERS}&Difficulty=${DIFFICULTY}
+echo "Server has stopped"
