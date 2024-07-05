@@ -23,7 +23,7 @@ if [ -f ${WEB_CONFIG_FILE} ]; then
 fi
 
 # Start the server
-GAMECMD="KFGameContent.KFGameInfo_Survival"
+GAMECMD="KFGameContent.KFGameInfo_Survival&"
 
 if [ "${GAMEMODE}" = "Versus" ]; then
     GAMECMD="Game=KFGameContent.KFGameInfo_VersusSurvival&"
