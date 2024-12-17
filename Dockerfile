@@ -40,4 +40,4 @@ ADD start.sh /home/kf2/start.sh
 
 WORKDIR /home/kf2
 
-ENTRYPOINT ["/home/kf2/run.sh" ]
+ENTRYPOINT ["/home/kf2/run.sh"]
