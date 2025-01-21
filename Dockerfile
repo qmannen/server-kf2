@@ -1,10 +1,23 @@
 FROM debian:latest
 
-ARG URL_STEAMCMD
+# Steam port
+EXPOSE 20560/udp
+# Game port
+EXPOSE 7777/udp 
+# Web admin port
+EXPOSE 8080/tcp
+# Query port - master server coms, to show up in server browser
+EXPOSE 27015/udp
 
+# Get from docker-compose.yml using ARG
+ARG URL_STEAMCMD
+# Get from docker-compose.yml using ARG
 ARG STEAMCMD_APP_ID
+# Expose to container using ENV
 ENV STEAMCMD_APP_ID=${STEAMCMD_APP_ID}
+# Get from docker-compose.yml using ARG
 ARG CONTAINER_USER
+# Expose to container using ENV
 ENV CONTAINER_USER=${CONTAINER_USER}
 ARG CONTAINER_DIR_HOME
 ENV CONTAINER_DIR_HOME=${CONTAINER_DIR_HOME}
@@ -33,17 +46,6 @@ ENV KF2_GAME_PLAYER_COUNT=${KF2_GAME_PLAYER_COUNT}
 ARG KF2_MAP_NAME
 ENV KF2_MAP_NAME=${KF2_MAP_NAME}
 
-#ENV HOME="${CONTAINER_DIR_HOME}"
-
-# Steam port
-EXPOSE 20560/udp
-# Game port
-EXPOSE 7777/udp 
-# Web admin port
-EXPOSE 8080/tcp
-# Query port - master server coms, to show up in server browser
-EXPOSE 27015/udp
-
 RUN dpkg --add-architecture i386 \
  && apt update -y \
  && apt upgrade -y  \
@@ -63,9 +65,10 @@ RUN dpkg --add-architecture i386 \
 	locales \
  && rm -rf /var/lib/apt/lists/*
 
+# Install en_US locale for SteamCMD to work as intended
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
 
-# Install steamcmd
+# Install SteamCMD
 RUN mkdir -p ${CONTAINER_DIR_STEAMCMD} \
     && curl -o /tmp/steamcmd.tar.gz "${URL_STEAMCMD}" \
     && tar -xvzf /tmp/steamcmd.tar.gz -C ${CONTAINER_DIR_STEAMCMD} \
