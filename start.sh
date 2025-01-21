@@ -8,7 +8,7 @@ echo "Preparing the server"
 timeout 10 ${BINARY_FILE}
 echo "Server Prepared"
 
-BINARY_FILE=/home/services/steamapps/kf2/Binaries/Win64/KFGameSteamServer.bin.x86_64
+BINARY_FILE=/home/services/steamapps/kf2/KFGame/Binaries/Win64/KFGameSteamServer.bin.x86_64
 SERVER_CONFIG_FILE=/home/services/steamapps/kf2/KFGame/Config/LinuxServer-KFGame.ini
 WEB_CONFIG_FILE=/home/services/steamapps/kf2/KFGame/Config/KFWeb.ini
 
