@@ -1,5 +1,4 @@
 FROM debian:latest
-#steamcmd/steamcmd:debian
 
 ARG URL_STEAMCMD
 
@@ -11,6 +10,8 @@ ARG CONTAINER_DIR_HOME
 ENV CONTAINER_DIR_HOME=${CONTAINER_DIR_HOME}
 ARG CONTAINER_DIR_SERVICE
 ENV CONTAINER_DIR_SERVICE=${CONTAINER_DIR_SERVICE}
+ARG CONTAINER_DIR_STEAMCMD
+ENV CONTAINER_DIR_STEAMCMD=${CONTAINER_DIR_STEAMCMD}
 ARG KF2_PORT_GAME
 ENV KF2_PORT_GAME=${KF2_PORT_GAME}
 ARG KF2_PORT_QUERY
@@ -65,9 +66,9 @@ RUN dpkg --add-architecture i386 \
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
 
 # Install steamcmd
-RUN mkdir -p ${CONTAINER_DIR_HOME}/steamcmd \
+RUN mkdir -p ${CONTAINER_DIR_STEAMCMD} \
     && curl -o /tmp/steamcmd.tar.gz "${URL_STEAMCMD}" \
-    && tar -xvzf /tmp/steamcmd.tar.gz -C ${CONTAINER_DIR_HOME}/steamcmd \
+    && tar -xvzf /tmp/steamcmd.tar.gz -C ${CONTAINER_DIR_STEAMCMD} \
     && rm -rf /tmp/*
 
 # Remove curl and clean-up apt

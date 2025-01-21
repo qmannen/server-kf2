@@ -9,6 +9,7 @@ services:
         CONTAINER_USER: services
         CONTAINER_DIR_HOME: /home/services
         CONTAINER_DIR_SERVICE: /home/services/port-7777
+        CONTAINER_DIR_STEAMCMD: /home/services/steamcmd
         KF2_PORT_GAME: 7777
         KF2_PORT_QUERY: 27015
         KF2_PORT_WEBADMIN: 8080
