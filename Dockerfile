@@ -2,9 +2,10 @@ FROM debian:latest
 #steamcmd/steamcmd:debian
 
 ARG STEAMCMD_URL="https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz"
-ARG INPUT_USER="kf2"
-ARG INPUT_HOME_DIR="/home/kf2"
+ARG INPUT_USER="services"
+ARG INPUT_HOME_DIR="/home/services"
 
+ENV HOME="${INPUT_HOME_DIR}"
 ENV ADMIN="admin"
 ENV ADMIN_PASSWORD="admin"
 ENV START_MAP="kf-bioticslab"
@@ -61,13 +62,14 @@ RUN apt-get remove --purge -y curl && \
 RUN useradd -d ${INPUT_HOME_DIR} -m -s /bin/bash ${INPUT_USER}
 RUN mkdir -p ${INPUT_HOME_DIR}/scripts
 RUN mkdir -p ${INPUT_HOME_DIR}/Steam/linux32
+RUN mkdir -p ${INPUT_HOME_DIR}/Steam/logs
 RUN mkdir -p ${INPUT_HOME_DIR}/.steam/sdk32
 RUN ln -s ${INPUT_HOME_DIR}/Steam/linux32/steamclient.so ${INPUT_HOME_DIR}/.steam/sdk32/steamclient.so
 RUN chown -R ${INPUT_USER}:${INPUT_USER} ${INPUT_HOME_DIR}
 
-ADD steamcmd.sh ${INPUT_HOME_DIR}/scripts/steamcmd.sh
+ADD download.sh ${INPUT_HOME_DIR}/scripts/download.sh
 ADD run.sh ${INPUT_HOME_DIR}/scripts/run.sh
 ADD start.sh ${INPUT_HOME_DIR}/scripts/start.sh
 
 WORKDIR ${INPUT_HOME_DIR}
-#ENTRYPOINT ["/home/kf2/scripts/run.sh"]
+ENTRYPOINT ["/home/services/scripts/run.sh"]

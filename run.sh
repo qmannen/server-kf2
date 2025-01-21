@@ -1,3 +1,3 @@
 #!/bin/bash
 
-/home/kf2/scripts/steamcmd.sh && /home/kf2/scripts/start.sh
+/home/services/scripts/download.sh && /home/services/scripts/start.sh

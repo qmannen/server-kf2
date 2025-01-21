@@ -34,15 +34,15 @@ services:
     
     # Persist game files
     volumes:
-      - steamcmd-data:/home/kf2/Steam  # SteamCMD installation data
-      - gameserver-data:/home/kf2/steamapps  # Game server files
+      - steamcmd-data:/home/services/Steam  # SteamCMD installation data
+      - gameserver-data:/home/services/steamapps  # Game server files
     
     # Automatically restart container unless manually stopped
     restart: unless-stopped
 
     tty: true
     stdin_open: true
-    working_dir: /home/kf2
+    working_dir: /home/services
 
     # Resource limits to prevent container from consuming too many resources
     deploy:
