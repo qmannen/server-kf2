@@ -1,10 +1,10 @@
 #!/bin/bash
 
-cd ${CONTAINER_DIR_SERVICE}
+cd ${CONTAINER_DIR_APP}
 
-BINARY_FILE="$CONTAINER_DIR_SERVICE/Binaries/Win64/KFGameSteamServer.bin.x86_64"
-SERVER_CONFIG_FILE="$CONTAINER_DIR_SERVICE/KFGame/Config/LinuxServer-KFGame.ini"
-WEB_CONFIG_FILE="$CONTAINER_DIR_SERVICE/KFGame/Config/KFWeb.ini"
+BINARY_FILE="$CONTAINER_DIR_APP/Binaries/Win64/KFGameSteamServer.bin.x86_64"
+SERVER_CONFIG_FILE="$CONTAINER_DIR_APP/KFGame/Config/LinuxServer-KFGame.ini"
+WEB_CONFIG_FILE="$CONTAINER_DIR_APP/KFGame/Config/KFWeb.ini"
 
 echo "Preparing the server"
 # First start to generate the config files

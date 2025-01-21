@@ -8,7 +8,7 @@ services:
         URL_STEAMCMD: https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
         CONTAINER_USER: services
         CONTAINER_DIR_HOME: /home/services
-        CONTAINER_DIR_SERVICE: /home/services/port-7777
+        CONTAINER_DIR_APP: /home/services/port-7777
         CONTAINER_DIR_STEAMCMD: /home/services/steamcmd
         KF2_PORT_GAME: 7777
         KF2_PORT_QUERY: 27015
