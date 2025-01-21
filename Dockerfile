@@ -2,6 +2,7 @@ FROM debian:latest
 #steamcmd/steamcmd:debian
 
 ARG URL_STEAMCMD
+
 ARG CONTAINER_USER
 ENV CONTAINER_USER=${CONTAINER_USER}
 ARG CONTAINER_DIR_HOME
@@ -32,13 +33,13 @@ ENV KF2_MAP_NAME=${KF2_MAP_NAME}
 
 #ENV HOME="${CONTAINER_DIR_HOME}"
 
-#steam port
+# Steam port
 EXPOSE 20560/udp
-#game port
-EXPOSE 7777/udp
-#web admin port
+# Game port
+EXPOSE 7777/udp 
+# Web admin port
 EXPOSE 8080/tcp
-#query port - master server coms, to show up in server browser
+# Query port - master server coms, to show up in server browser
 EXPOSE 27015/udp
 
 RUN dpkg --add-architecture i386 \
@@ -69,9 +70,9 @@ RUN mkdir -p ${CONTAINER_DIR_HOME}/steamcmd \
     && rm -rf /tmp/*
 
 # Remove curl and clean-up apt
-RUN apt-get remove --purge -y curl && \
-        apt-get clean autoclean && \
-        apt-get autoremove -y && \
+RUN apt remove --purge -y curl && \
+        apt clean autoclean && \
+        apt autoremove -y && \
         rm -rf /var/lib/{apt,dpkg} /var/{cache,log}
 
 RUN useradd -d ${CONTAINER_DIR_HOME} -m -s /bin/bash ${CONTAINER_USER}

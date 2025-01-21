@@ -15,6 +15,7 @@ echo "Server prepared"
 if [ -f "${SERVER_CONFIG_FILE}" ]; then
 	echo "Applying server configuration"
 	sed -i "s/ServerName.*/ServerName=${KF2_GAME_NAME}/" ${SERVER_CONFIG_FILE}
+	sed -i "s/MaxPlayers.*/MaxPlayers=${KF2_GAME_PLAYER_COUNT}/" ${SERVER_CONFIG_FILE}
 	sed -i "s/AdminPassword.*/AdminPassword=${KF2_ADMIN_PASSWORD}/" ${SERVER_CONFIG_FILE}
 fi
 

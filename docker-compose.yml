@@ -16,7 +16,7 @@ services:
         KF2_GAME_DIFFICULTY: 1
         KF2_GAME_LENGTH: 2
         KF2_GAME_MODE: Survival
-        KF2_GAME_PLAYER_COUNT: 8
+        KF2_GAME_PLAYER_COUNT: 12
         KF2_MAP_NAME: KF-BioticsLab
 
     # Emulate if needed
