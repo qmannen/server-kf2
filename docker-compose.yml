@@ -1,50 +1,59 @@
 services:
-  port-20560:
+  port-7777:
+    # Build the image from the current directory
+    build:
+      context: .
+      args:
+        URL_STEAMCMD: https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
+        CONTAINER_USER: services
+        CONTAINER_DIR_HOME: /home/services
+        CONTAINER_DIR_SERVICE: /home/services/port-7777
+        KF2_GAME_PORT: 7777
+        KF2_QUERY_PORT: 27015
+        KF2_WEBADMIN_PORT: 8080
+        KF2_ADMIN_PASSWORD: admin
+        KF2_GAME_DIFFICULTY: 1
+        KF2_GAME_LENGTH: 2
+        KF2_GAME_MODE: Survival
+        KF2_GAME_PLAYER_COUNT: 8
+        KF2_MAP_NAME: KF-BioticsLab
+
+    # Emulate if needed
     platform: linux/amd64
 
-    # Build the image from the current directory
-    build: .
-
+    # Nameservers for domain resolution
     dns:
       - 1.1.1.1
       - 8.8.8.8
-    
+
     # Container port mappings
     ports:
-      - "20560:20560/udp"  # Game port
-      - "7777:7777/udp"    # Query port
-      - "8080:8080/tcp"    # Web admin
-      - "27015:27015/udp"  # Steam port
-    
+      - "7777:7777/udp"    # Game port
+#      - "20560:20560/udp"  # Steam port
+#      - "8080:8080/tcp"    # Web admin port
+#      - "27015:27015/udp"  # Master server comms, to show up in server browser
+
+    working_dir: /home/services
+
     # Environment variables for server configuration
     environment:
-      - KF2_GAME_PORT=7777
-      - KF2_QUERY_PORT=27015
-      - KF2_WEBADMIN_PORT=8080
-      - KF2_GAME_PASSWORD=
-      - KF2_ADMIN_PASSWORD=admin
-      - KF2_GAME_DIFFICULTY=1
-      - KF2_GAME_LENGTH=2
-      - KF2_GAME_MODE=Survival
-      - KF2_MAP_NAME=KF-BioticsLab
-      - KF2_MUTATORS=
       - PUID=1000  # Adjust for your host's user ID, remove to run as root user
       - PGID=1000  # Adjust for your host's group ID, remote to run as root group
       - TZ=Europe/Stockholm  # Set your timezone, look up the format if you don't know your TZ code
-    
+
     # Persist game files
     volumes:
       - steamcmd-data:/home/services/Steam  # SteamCMD installation data
-      - gameserver-data:/home/services/steamapps  # Game server files
-    
+      - gameserver-data:/home/services/port-7777  # Game server files
+
     # Automatically restart container unless manually stopped
     restart: unless-stopped
 
+    # Logging
     tty: true
     stdin_open: true
-    working_dir: /home/services
 
-    # Resource limits to prevent container from consuming too many resources
+    # Resource limits to prevent container from affecting other services
     deploy:
       resources:
         limits:

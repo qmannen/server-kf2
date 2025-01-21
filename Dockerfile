@@ -1,22 +1,34 @@
 FROM debian:latest
 #steamcmd/steamcmd:debian
 
-ARG STEAMCMD_URL="https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz"
-ARG INPUT_USER="services"
-ARG INPUT_HOME_DIR="/home/services"
+ARG URL_STEAMCMD
+ARG CONTAINER_USER
+ENV CONTAINER_USER=${CONTAINER_USER}
+ARG CONTAINER_DIR_HOME
+ENV CONTAINER_DIR_HOME=${CONTAINER_DIR_HOME}
+ARG CONTAINER_DIR_SERVICE
+ENV CONTAINER_DIR_SERVICE=${CONTAINER_DIR_SERVICE}
 
-ENV HOME="${INPUT_HOME_DIR}"
-ENV ADMIN="admin"
-ENV ADMIN_PASSWORD="admin"
-ENV START_MAP="kf-bioticslab"
-ENV MAX_PLAYERS=6
-ENV DIFFICULTY=0
-ENV ENABLE_WEBADMIN=true
-#Options: Survival, Versus, Weekly, Endless
-ENV GAMEMODE=Survival 
+ARG KF2_GAME_PORT
+ENV KF2_GAME_PORT=${KF2_GAME_PORT}
+ARG KF2_QUERY_PORT
+ENV KF2_QUERY_PORT=${KF2_QUERY_PORT}
+ARG KF2_WEBADMIN_PORT
+ENV KF2_WEBADMIN_PORT=${KF2_WEBADMIN_PORT}
+ARG KF2_ADMIN_PASSWORD
+ENV KF2_ADMIN_PASSWORD=${KF2_ADMIN_PASSWORD}
+ARG KF2_GAME_DIFFICULTY
+ENV KF2_GAME_DIFFICULTY=${KF2_GAME_DIFFICULTY}
+ARG KF2_GAME_LENGTH
+ENV KF2_GAME_LENGTH=${KF2_GAME_LENGTH}
+ARG KF2_GAME_MODE
+ENV KF2_GAME_MODE=${KF2_GAME_MODE}
+ARG KF2_GAME_PLAYER_COUNT
+ENV KF2_GAME_PLAYER_COUNT=${KF2_GAME_PLAYER_COUNT}
+ARG KF2_MAP_NAME
+ENV KF2_MAP_NAME=${KF2_MAP_NAME}
 
-#Debian
-ENV CPU_MHZ=3800
+#ENV HOME="${CONTAINER_DIR_HOME}"
 
 #steam port
 EXPOSE 20560/udp
@@ -34,6 +46,7 @@ RUN dpkg --add-architecture i386 \
 	sudo \
 	curl \
 	nano \
+	libcurl4 \
 	libc6:i386 \
 	libstdc++6:i386 \
 	lib32gcc-s1 \
@@ -48,9 +61,9 @@ RUN dpkg --add-architecture i386 \
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
 
 # Install steamcmd
-RUN mkdir -p ${INPUT_HOME_DIR}/steamcmd \
-    && curl -o /tmp/steamcmd.tar.gz "${STEAMCMD_URL}" \
-    && tar -xvzf /tmp/steamcmd.tar.gz -C ${INPUT_HOME_DIR}/steamcmd \
+RUN mkdir -p ${CONTAINER_DIR_HOME}/steamcmd \
+    && curl -o /tmp/steamcmd.tar.gz "${URL_STEAMCMD}" \
+    && tar -xvzf /tmp/steamcmd.tar.gz -C ${CONTAINER_DIR_HOME}/steamcmd \
     && rm -rf /tmp/*
 
 # Remove curl and clean-up apt
@@ -59,17 +72,18 @@ RUN apt-get remove --purge -y curl && \
         apt-get autoremove -y && \
         rm -rf /var/lib/{apt,dpkg} /var/{cache,log}
 
-RUN useradd -d ${INPUT_HOME_DIR} -m -s /bin/bash ${INPUT_USER}
-RUN mkdir -p ${INPUT_HOME_DIR}/scripts
-RUN mkdir -p ${INPUT_HOME_DIR}/Steam/linux32
-RUN mkdir -p ${INPUT_HOME_DIR}/Steam/logs
-RUN mkdir -p ${INPUT_HOME_DIR}/.steam/sdk32
-RUN ln -s ${INPUT_HOME_DIR}/Steam/linux32/steamclient.so ${INPUT_HOME_DIR}/.steam/sdk32/steamclient.so
-RUN chown -R ${INPUT_USER}:${INPUT_USER} ${INPUT_HOME_DIR}
+RUN useradd -d ${CONTAINER_DIR_HOME} -m -s /bin/bash ${CONTAINER_USER}
+RUN mkdir -p ${CONTAINER_DIR_SERVICE}
+RUN mkdir -p ${CONTAINER_DIR_HOME}/scripts
+RUN mkdir -p ${CONTAINER_DIR_HOME}/Steam/linux32
+RUN mkdir -p ${CONTAINER_DIR_HOME}/Steam/logs
+RUN mkdir -p ${CONTAINER_DIR_HOME}/.steam/sdk32
+RUN ln -s ${CONTAINER_DIR_HOME}/Steam/linux32/steamclient.so ${CONTAINER_DIR_HOME}/.steam/sdk32/steamclient.so
 
-ADD download.sh ${INPUT_HOME_DIR}/scripts/download.sh
-ADD run.sh ${INPUT_HOME_DIR}/scripts/run.sh
-ADD start.sh ${INPUT_HOME_DIR}/scripts/start.sh
+ADD download.sh ${CONTAINER_DIR_HOME}/scripts/download.sh
+ADD run.sh ${CONTAINER_DIR_HOME}/scripts/run.sh
+ADD start.sh ${CONTAINER_DIR_HOME}/scripts/start.sh
 
-WORKDIR ${INPUT_HOME_DIR}
+RUN chown -R ${CONTAINER_USER}:${CONTAINER_USER} ${CONTAINER_DIR_HOME}
+WORKDIR ${CONTAINER_DIR_HOME}
 ENTRYPOINT ["/home/services/scripts/run.sh"]

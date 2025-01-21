@@ -1,41 +1,27 @@
 #!/bin/bash
 
-cd /home/services/steamapps/kf2
+cd ${CONTAINER_DIR_SERVICE}
+
+BINARY_FILE="$CONTAINER_DIR_SERVICE/Binaries/Win64/KFGameSteamServer.bin.x86_64"
+SERVER_CONFIG_FILE="$CONTAINER_DIR_SERVICE/KFGame/Config/LinuxServer-KFGame.ini"
+WEB_CONFIG_FILE="$CONTAINER_DIR_SERVICE/KFGame/Config/KFWeb.ini"
 
 echo "Preparing the server"
-
 # First start to generate the config files
 timeout 10 ${BINARY_FILE}
-echo "Server Prepared"
+echo "Server prepared"
 
-BINARY_FILE=/home/services/steamapps/kf2/KFGame/Binaries/Win64/KFGameSteamServer.bin.x86_64
-SERVER_CONFIG_FILE=/home/services/steamapps/kf2/KFGame/Config/LinuxServer-KFGame.ini
-WEB_CONFIG_FILE=/home/services/steamapps/kf2/KFGame/Config/KFWeb.ini
-
+# LinuxServer-KFGame.ini
 if [ -f "${SERVER_CONFIG_FILE}" ]; then
 	echo "Applying server configuration"
-	sed -i "s/AdminPassword.*/AdminPassword=${ADMIN_PASSWORD}/" ${SERVER_CONFIG_FILE}
+	sed -i "s/AdminPassword.*/AdminPassword=${KF2_ADMIN_PASSWORD}/" ${SERVER_CONFIG_FILE}
 fi
 
+# KFWeb.ini
 if [ -f "${WEB_CONFIG_FILE}" ]; then
 	# En- or disable webadmin
 	echo "Applying web configuration"
-	sed -i "s/bEnabled.*/bEnabled=${ENABLE_WEBADMIN}/" ${WEB_CONFIG_FILE}
-fi
-
-# Start the server
-GAMECMD="KFGameContent.KFGameInfo_Survival&"
-
-if [ "${GAMEMODE}" = "Versus" ]; then
-    GAMECMD="Game=KFGameContent.KFGameInfo_VersusSurvival&"
-fi
-
-if [ "${GAMEMODE}" = "Weekly" ]; then
-    GAMECMD="Game=KFGameContent.KFGameInfo_WeeklySurvival&"
-fi
-
-if [ "${GAMEMODE}" = "Endless" ]; then
-    GAMECMD="Game=KFGameContent.KFGameInfo_Endless&"
+	sed -i "s/bEnabled.*/bEnabled=${KF2_ADMIN_PASSWORD}/" ${WEB_CONFIG_FILE}
 fi
 
 echo "Starting the game"	
