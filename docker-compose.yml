@@ -1,0 +1,62 @@
+services:
+  port-20560:
+    platform: linux/amd64
+
+    # Build the image from the current directory
+    build: .
+
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    
+    # Container port mappings
+    ports:
+      - "20560:20560/udp"  # Game port
+      - "7777:7777/udp"    # Query port
+      - "8080:8080/tcp"    # Web admin
+      - "27015:27015/udp"  # Steam port
+    
+    # Environment variables for server configuration
+    environment:
+      - KF2_GAME_PORT=7777
+      - KF2_QUERY_PORT=27015
+      - KF2_WEBADMIN_PORT=8080
+      - KF2_GAME_PASSWORD=
+      - KF2_ADMIN_PASSWORD=admin
+      - KF2_GAME_DIFFICULTY=1
+      - KF2_GAME_LENGTH=2
+      - KF2_GAME_MODE=Survival
+      - KF2_MAP_NAME=KF-BioticsLab
+      - KF2_MUTATORS=
+      - PUID=1000  # Adjust for your host's user ID, remove to run as root user
+      - PGID=1000  # Adjust for your host's group ID, remote to run as root group
+      - TZ=Europe/Stockholm  # Set your timezone, look up the format if you don't know your TZ code
+    
+    # Persist game files
+    volumes:
+      - steamcmd-data:/home/kf2/Steam  # SteamCMD installation data
+      - gameserver-data:/home/kf2/steamapps  # Game server files
+    
+    # Automatically restart container unless manually stopped
+    restart: unless-stopped
+
+    tty: true
+    stdin_open: true
+    working_dir: /home/kf2
+
+    # Resource limits to prevent container from consuming too many resources
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 8G
+        reservations:
+          cpus: '2.0'
+          memory: 4G
+
+# Named volumes for data persistence
+volumes:
+  steamcmd-data:
+    driver: local
+  gameserver-data:
+    driver: local
