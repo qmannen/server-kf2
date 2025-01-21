@@ -8,10 +8,11 @@ services:
         CONTAINER_USER: services
         CONTAINER_DIR_HOME: /home/services
         CONTAINER_DIR_SERVICE: /home/services/port-7777
-        KF2_GAME_PORT: 7777
-        KF2_QUERY_PORT: 27015
-        KF2_WEBADMIN_PORT: 8080
+        KF2_PORT_GAME: 7777
+        KF2_PORT_QUERY: 27015
+        KF2_PORT_WEBADMIN: 8080
         KF2_ADMIN_PASSWORD: admin
+        KF2_GAME_NAME: Does it work?
         KF2_GAME_DIFFICULTY: 1
         KF2_GAME_LENGTH: 2
         KF2_GAME_MODE: Survival
