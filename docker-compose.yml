@@ -4,6 +4,7 @@ services:
     build:
       context: .
       args:
+        STEAMCMD_APP_ID: 232130
         URL_STEAMCMD: https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
         CONTAINER_USER: services
         CONTAINER_DIR_HOME: /home/services

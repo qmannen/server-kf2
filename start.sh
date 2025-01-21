@@ -12,7 +12,7 @@ timeout 10 ${BINARY_FILE}
 echo "Server prepared"
 
 # LinuxServer-KFGame.ini
-if [ -f "${SERVER_CONFIG_FILE}" ]; then
+if [ -f "$SERVER_CONFIG_FILE" ]; then
 	echo "Applying server configuration"
 	sed -i "s/ServerName.*/ServerName=${KF2_GAME_NAME}/" ${SERVER_CONFIG_FILE}
 	sed -i "s/MaxPlayers.*/MaxPlayers=${KF2_GAME_PLAYER_COUNT}/" ${SERVER_CONFIG_FILE}
@@ -20,12 +20,12 @@ if [ -f "${SERVER_CONFIG_FILE}" ]; then
 fi
 
 # KFWeb.ini
-if [ -f "${WEB_CONFIG_FILE}" ]; then
+if [ -f "$WEB_CONFIG_FILE" ]; then
 	# En- or disable webadmin
 	echo "Applying web configuration"
 	sed -i "s/bEnabled.*/bEnabled=${KF2_ADMIN_PASSWORD}/" ${WEB_CONFIG_FILE}
 fi
 
-echo "Starting the game"	
+echo "Starting the game"
 ${BINARY_FILE}
 echo "Server has stopped"
