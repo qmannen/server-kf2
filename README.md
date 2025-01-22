@@ -5,7 +5,7 @@ A containerized Killing Floor 2 server based on the [Debian](https://hub.docker.
 Start kf2 in daemon mode
 docker-compose up --build --force-recreate -d
 
-Stop running docker conatiner
+Stop running docker conatiner. If you are in the folder where the running docker is located you dont need a ID after stop
 $ docker-compose stop
 
 Restart running docker container
