@@ -11,13 +11,17 @@ services:
         CONTAINER_DIR_APP: /home/services/port-7777
         CONTAINER_DIR_STEAMCMD: /home/services/steamcmd
         KF2_PORT_GAME: 7777
-        KF2_PORT_QUERY: 27015
-        KF2_PORT_WEBADMIN: 8080
+        KF2_PORT_QUERY: 7787
+        KF2_PORT_WEBADMIN: 7797
         KF2_ADMIN_PASSWORD: admin
-        KF2_GAME_NAME: Does it work?
-        KF2_GAME_DIFFICULTY: 1
+        # Server Name vissible in server browser
+        KF2_GAME_NAME: Does it work
+        # posible Difficultis are 0,1,2,3: 0=normal,1=hard,2=suicidal,3=HellOnEarth
+        KF2_GAME_DIFFICULTY: 2
+        # game_lenght can be 0,1,2: 0=4rounds,1=7rounds,2=10rounds
         KF2_GAME_LENGTH: 2
         KF2_GAME_MODE: Survival
+        # max players possible on server,this line only applicable for Versus mode cuz survival is limitied to 6 and can be changed with
         KF2_GAME_PLAYER_COUNT: 12
         KF2_MAP_NAME: KF-BioticsLab
 
@@ -32,9 +36,9 @@ services:
     # Container port mappings
     ports:
       - "7777:7777/udp"    # Game port
-#      - "20560:20560/udp"  # Steam port
-#      - "8080:8080/tcp"    # Web admin port
-#      - "27015:27015/udp"  # Master server comms, to show up in server browser
+      - "20560:20560/udp"  # Steam port
+      - "7797:7797/tcp"    # Web admin port
+      - "7787:7787/udp"  # Master server comms, to show up in server browser
 
     working_dir: /home/services
 

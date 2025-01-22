@@ -5,9 +5,9 @@ EXPOSE 20560/udp
 # Game port
 EXPOSE 7777/udp 
 # Web admin port
-EXPOSE 8080/tcp
+EXPOSE 7797/tcp
 # Query port - master server coms, to show up in server browser
-EXPOSE 27015/udp
+EXPOSE 7787/udp
 
 # Get from docker-compose.yml using ARG
 ARG URL_STEAMCMD
